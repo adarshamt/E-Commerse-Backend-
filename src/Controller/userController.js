@@ -1,5 +1,7 @@
 const user= require("../Model/userShema")
 
+const jwt = require("jsonwebtoken")
+
 const products=require("../Model/productSchema")
 
 
@@ -35,7 +37,7 @@ const userRegistration= async (req,res)=>{
 
 const userLogin= async(req,res)=>{
 
-    try{
+ 
         const USERNAME =req.body.username
         const PASSWORD = req.body.password
 
@@ -43,21 +45,31 @@ const userLogin= async(req,res)=>{
              if(!checkuser){
                  
                 return   console.log("user not registerd")
-        }
+               }
+
+        const token = jwt.sign({username:USERNAME},'adarsh')
+        res.json({
+
+            "status":"success",
+            "messege":"token created successfully",
+            "token":token
+        })
+
         res.send("Loged in successfully")
+
             
         
          
     }
 
-catch(err){
 
 
-    console.log("error",err)
 
-}
 
-}
+
+
+
+
 
 // ************VIEW PRODUCTS BY CATEGORY********
 
