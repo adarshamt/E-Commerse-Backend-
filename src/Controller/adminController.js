@@ -4,6 +4,8 @@ const user =require("../Model/userShema")
 
 const products =require("../Model/productSchema")
 
+const jwt = require("jsonwebtoken")
+
 // *************ADMIN LOGIN*****************
 
 const adminLogin = async (req,res)=>{
@@ -15,8 +17,15 @@ const adminLogin = async (req,res)=>{
     const admin_req_username= req.body.username
     const admin_req_password=req.body.password
    console.log(admin_req_username,admin_req_password)
-    if (admin_username==admin_req_username && admin_password==admin_req_password){
 
+   if (admin_username==admin_req_username && admin_password==admin_req_password){
+       
+       const token = jwt.sign({username:admin_username},"admin")
+       res.json({
+   
+           "status":"token created successfully",
+           "token":token
+       })
         res.send("admin login successfully")
     }
     else(
