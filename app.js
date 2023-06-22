@@ -6,7 +6,7 @@ const port=3000;
 const mongoose =require("mongoose")
 
 const url= "mongodb://127.0.0.1:27017/Ecommerse"
-
+require('dotenv').config();
 
 app.use(express.json())
 
@@ -28,7 +28,9 @@ let adminRoute=require("./src/Routes/admin")
 app.use("/",adminRoute)
 
 
-
+// // *********PAYMENT ROUTE************
+// let paymentRoute =require("./src/Routes/payment")
+// app.use("/",paymentRoute)
 
 
 

@@ -18,19 +18,19 @@ const adminLogin = async (req,res)=>{
     const admin_req_password=req.body.password
    console.log(admin_req_username,admin_req_password)
 
-   if (admin_username==admin_req_username && admin_password==admin_req_password){
+   if (admin_username!=admin_req_username || admin_password!=admin_req_password){
        
-       const token = jwt.sign({username:admin_username},"admin")
-       res.json({
-   
-           "status":"token created successfully",
-           "token":token
-       })
-        res.send("admin login successfully")
+    res.send("wrong credentials")
+    
     }
-    else(
-        res.send("wrong credentials")
-    )
+   
+    const token = jwt.sign({username:admin_username},"admin")
+    res.json({
+
+        "status":"token created successfully",
+        "token":token
+    })
+     res.send("admin login successfully")
 }
 
     // *********FIND ALL USERS************

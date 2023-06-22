@@ -6,7 +6,7 @@ const product = require("../Controller/productController")
 
 const {adminLogin,findAllUsers,findOneUser,findAllProducts,findyProductByCategory,viewSpecificProduct,deleteProduct,updateProduct} =require("../Controller/adminController")//importing the function directly
 
-const {adminAuthentication}= require("../Midlewares/adminAuthorization")
+const {adminAuthentication}= require("../Midleware/adminAuthorization")
 
 route.post("/admin/login",adminLogin)
 route.get("/admin/users",adminAuthentication,findAllUsers)
