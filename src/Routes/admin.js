@@ -8,15 +8,17 @@ const {adminLogin,findAllUsers,findOneUser,findAllProducts,findyProductByCategor
 
 const {adminAuthentication}= require("../Midleware/adminAuthorization")
 
+const tryCatch =require("../Midleware/tryCatch")
+
 route.post("/admin/login",adminLogin)
-route.get("/admin/users",adminAuthentication,findAllUsers)
-route.post("/admin/products",adminAuthentication,product.addProduct)
-route.get("/admin/users/:id",adminAuthentication,findOneUser)
-route.get("/admin/products",adminAuthentication,findAllProducts)
-route.get("/admin/products/category/:category",adminAuthentication,findyProductByCategory)
-route.get("/admin/products/:id",adminAuthentication,viewSpecificProduct)
-route.delete("/admin/products/:id",adminAuthentication,deleteProduct)
-route.put("/admin/products/:id",adminAuthentication,updateProduct)
+route.get("/admin/users",adminAuthentication,tryCatch(findAllUsers))
+route.post("/admin/products",adminAuthentication,tryCatch(product.addProduct))
+route.get("/admin/users/:id",adminAuthentication,tryCatch(findOneUser))
+route.get("/admin/products",adminAuthentication,tryCatch(findAllProducts))
+route.get("/admin/products/category/:category",adminAuthentication,tryCatch(findyProductByCategory))
+route.get("/admin/products/:id",adminAuthentication,tryCatch(viewSpecificProduct))
+route.delete("/admin/products/:id",adminAuthentication,tryCatch(deleteProduct))
+route.put("/admin/products/:id",adminAuthentication,tryCatch(updateProduct))
 
 
 

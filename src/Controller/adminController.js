@@ -6,6 +6,7 @@ const products =require("../Model/productSchema")
 
 const jwt = require("jsonwebtoken")
 
+
 // *************ADMIN LOGIN*****************
 
 const adminLogin = async (req,res)=>{
@@ -37,7 +38,7 @@ const adminLogin = async (req,res)=>{
 
     const findAllUsers = async (req,res)=>{
 
-        try{
+        
 
             const usersList= await user.find()
 
@@ -46,42 +47,34 @@ const adminLogin = async (req,res)=>{
 
         }
 
-        catch(err){
-
-            res.send("error",err)
-        }
-    }
+      
+    
 
     // ***********FIND ONE USER*******
     const findOneUser = async(req,res)=>{
         const ipUser = req.params.id
 
-        try{
-
+        
             const checkUser =await user.findById(ipUser)
 
             res.send(checkUser)
 
         }
 
-        catch(err){
-            res.send("No user found")
-        }
-    }
+       
+    
 
     // **************FIND ALL PRODUCTS***************
 
     const findAllProducts =async (req,res)=>{
           
-        try{
+       
 
         const allProducts = await products.find()
 
         res.json(allProducts)
-        }
-        catch(err){
-            res.send("error")
-        }
+        
+    
     
 
     }
@@ -91,7 +84,6 @@ const adminLogin = async (req,res)=>{
          
         const prdctbycategory= req.params.category
           
-        try{
 
             
 
@@ -100,17 +92,13 @@ const adminLogin = async (req,res)=>{
             
 
         }
-        catch(err){
-               res.send("error",err)
-
-        }
-    }
+    
 
     // **************VIEW SPECIFIC PRODUCT*************
 
     const viewSpecificProduct = async (req,res)=>{
 
-        try{
+        
         // const productId = req.params.id
         // console.log(productId)
 
@@ -125,27 +113,18 @@ const adminLogin = async (req,res)=>{
             
 
         }
-        catch(err){
-            res.status(500).json({ error: err.message });
-
-        }
-    }
+   
 
     // ***********DELETE PRODUCT*************
 
 const deleteProduct= async (req,res)=>{
 
-    try{
         const productid = req.params.id
         const updatedProducts= await products.findByIdAndDelete(productid)
         res.json(updatedProducts)
 
     }
-    catch(err){
-
-        res.send("error",err)
-    }
-}
+ 
 
 // **********UPDATE PRODUCT************
 
@@ -154,18 +133,12 @@ const updateProduct= async (req,res)=>{
     const product_id =req.params.id
     const body = req.body
     
-    try{
+    
     const updatedProduct= await products.findByIdAndUpdate(product_id,body,{new:true})
     res.json(updatedProduct)
 
     }
-    catch(err){
-
-        res.send("error",err)
-    }
-
-}
-
+  
 
 
 module.exports={adminLogin,findAllUsers,findOneUser,findAllProducts,findyProductByCategory,viewSpecificProduct,deleteProduct,updateProduct}

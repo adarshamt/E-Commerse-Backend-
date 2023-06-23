@@ -6,35 +6,32 @@ const products=require("../Model/productSchema")
 
 const stripe = require("stripe")(process.env.Secret_key)
 
+const bcrypt = require("bcrypt")
+
 
 
 
 const userRegistration= async (req,res)=>{
 
 
-    try{
+   
         const username =req.body.username
         const password = req.body.password
-      
-        const newUser=new user({username:username,password:password})
+      let hashPassword = await bcrypt.hash(password,10)
+
+      // console.log("hased password",hashPassword);
+        const newUser=new user({username:username,password:hashPassword})
         await newUser.save()
+
       
         res.send("user registerd susscefully")
 
-    }catch(err)
-    {
-
-        console.log("error",err)
-
-        res.json({
-            status:"failure",
-            message:err,
-        })
+  
 
     }
 
 
-}
+
 // *****************USER LOGIN*************
 
 const userLogin= async(req,res)=>{
@@ -59,18 +56,8 @@ const userLogin= async(req,res)=>{
 
         res.send("Loged in successfully")
 
-            
-        
-         
+          
     }
-
-
-
-
-
-
-
-
 
 
 // ************VIEW PRODUCTS BY CATEGORY********
@@ -78,36 +65,22 @@ const userLogin= async(req,res)=>{
 const viewProductByCategory = async(req,res)=>{
     const ipCategory= req.body.category
 
-    try {
         const viewProducts= await products.find({category:ipCategory})
         res.json(viewProducts)
     }
 
-    catch(err){
-
-        res.send("error",err)
-
-    }
-}
+    
     // *************VIEW SPECIFIC PRODUCT**************
 
     const viewSpecificProduct =async (req,res)=>{
 
         const product_id= req.params.id
          
-        try{
+      
 
             const specificProduct = await products.findById(product_id)
             res.json(specificProduct)
         }
-
-        catch(err){
-            res.send("error",err)
-
-        }
-    
-    
-    }
 
     // ************ADD PRODUCTS TO CART AND VIEW***********
 
@@ -118,7 +91,6 @@ const viewProductByCategory = async(req,res)=>{
 
         // console.log ("user id",user_id);
        if(req.method==="POST"){
-        try {
         const checkUser = await user.findById(user_id)
         const checkProduct= await products.findById(product_id)
 
@@ -144,18 +116,15 @@ const viewProductByCategory = async(req,res)=>{
 
     }
 
-    catch(err){
+  
 
-        res.send("error",err)
-    }
-
-
-    }
+    
      if(req.method ==="GET"){
     const finduser = await user.findById(user_id)
     res.json(finduser.cart)
     }
-}
+  }
+
 
 // *************PRODUCTS ADD & SHOW IN WHISHLIST*************
 
@@ -168,7 +137,7 @@ const add_viewProductsToWishlist =async (req,res)=>{
     
     if(req.method==="POST"){
 
-        try{
+    
 
             const checkUser = await user.findById(user_id)
             console.log(checkUser);
@@ -193,13 +162,10 @@ const add_viewProductsToWishlist =async (req,res)=>{
                  res.send("Product added to whishlist")
      
          }
-         catch(err){
-
-            res.send("error",err)
-        }
+      
 
 
-        }
+        
 
         if(req.method === "GET"){
             const finduser = await user.findById(user_id)
@@ -213,7 +179,6 @@ const payment = async (req, res) => {
     const User = await user.findById(userId).populate("cart");
   
     console.log("secret key",stripe.Secret_key)
-   try{ 
     if (!User) {
       return res.json({
         status: "failure",
@@ -266,18 +231,24 @@ const payment = async (req, res) => {
       orderid: session.id,
       total: totalSum
     })
-    await User.save();
+    await user.save();
 
     // console.log(User.orderdetails)
   }
 
-  catch(err){
+  // *************PURCHASED PRODUCTS DETAILS************
 
-    res.send(err,"error")
+  const purchasedProducts =async(req,res)=>{
+
+
+     const user_id =req.params.id
+     const checkUser = await user.findById(user_id)
+
+     res.json(checkUser.order)
+
   }
-  
-  };
 
 
 
-module.exports={userRegistration,userLogin,viewProductByCategory,viewSpecificProduct,addPoroductCart,add_viewProductsToWishlist,payment}
+
+module.exports={userRegistration,userLogin,viewProductByCategory,viewSpecificProduct,addPoroductCart,add_viewProductsToWishlist,payment,purchasedProducts}
