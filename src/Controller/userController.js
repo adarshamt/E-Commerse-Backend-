@@ -226,11 +226,13 @@ const payment = async (req, res) => {
   
     res.json({ url: session.url, orderId: session.id });
   
-    User.order.push({
+    user.order.push({
       products: User.cart.length,
       orderid: session.id,
       total: totalSum
     })
+     
+    user.cart= []
     await user.save();
 
     // console.log(User.orderdetails)

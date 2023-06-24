@@ -12,8 +12,8 @@ route.post('/users/login',tryCatch(userLogin))
 
 route.get("/users/products",authorizeUser,tryCatch(viewProductByCategory))
 // route.get("/users/products",viewProductByCategory)
+route.get("/users/products/:id",authorizeUser,tryCatch(viewSpecificProduct))  //
 route.get("/users/products/:id",authorizeUser,tryCatch(viewSpecificProduct))
-// route.get("/users/products/:id",viewSpecificProduct)
 route.post("/users/products/:id/cart",authorizeUser,tryCatch(addPoroductCart))
 route.get("/users/products/:id/cart",authorizeUser,tryCatch(addPoroductCart))
 route.post("/users/products/:id/whishlists",authorizeUser,tryCatch(add_viewProductsToWishlist))
