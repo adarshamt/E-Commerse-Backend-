@@ -250,6 +250,10 @@ const payment = async (req, res) => {
 
   }
 
+// T*****************TOTAL PURCHASED PRODUCTS**************
+
+const orderDetails = async 
+
 
 
 
