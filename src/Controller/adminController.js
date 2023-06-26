@@ -21,7 +21,7 @@ const adminLogin = async (req,res)=>{
 
    if (admin_username!=admin_req_username || admin_password!=admin_req_password){
        
-    res.send("wrong credentials")
+    return res.send("wrong credentials")
     
     }
    
@@ -31,7 +31,7 @@ const adminLogin = async (req,res)=>{
         "status":"token created successfully",
         "token":token
     })
-     res.send("admin login successfully")
+    //  res.send("admin login successfully")
 }
 
     // *********FIND ALL USERS************
@@ -56,8 +56,16 @@ const adminLogin = async (req,res)=>{
 
         
             const checkUser =await user.findById(ipUser)
+            
+            res.json({
 
-            res.send(checkUser)
+                status:"success",
+            //    message:"Product added to cart",
+               data:{
+                  checkUser
+               }
+           })
+            // res.send(checkUser)
 
         }
 

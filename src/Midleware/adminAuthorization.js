@@ -3,18 +3,19 @@ const jwt = require("jsonwebtoken")
 
 const adminAuthentication = (req,res,next)=>{
 
-    const ipToken = req.headers.athorization
+    const ipToken = req.headers.authorization
 
     if(ipToken == undefined){
-
-        res.status(5000,"no token found")
+         
+        return res.status(5000,"no token found")
     }
 
      let checkToken = ipToken.split(" ")[1]
-
-     jwt.verify(checkToken,adarsh,function(err,decode){
+    //  console.log(adarsh,"hello")
+     jwt.verify(checkToken,"admin",function(err,decode){
 
         if(err){
+            console.log("hello")
 
             res.send("authentication token failed")
         }

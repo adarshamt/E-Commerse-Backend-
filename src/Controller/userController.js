@@ -8,15 +8,29 @@ const stripe = require("stripe")(process.env.Secret_key)
 
 const bcrypt = require("bcrypt")
 
+const userValidation = require("../validation/schemaValidation")
+
 
 
 
 const userRegistration= async (req,res)=>{
+        
+     
+      const {err,value} = userValidation.userVal.validate(req.body)
+      
+      if(err){
+
+        return res.status(400).json({message:err})
+      }
+
+      const {username,password} = value
 
 
    
-        const username =req.body.username
-        const password = req.body.password
+        // const username =req.body.username
+        // const password = req.body.password
+
+
       let hashPassword = await bcrypt.hash(password,10)
 
       // console.log("hased password",hashPassword);
@@ -25,7 +39,10 @@ const userRegistration= async (req,res)=>{
 
       
         res.send("user registerd susscefully")
-
+     
+        // res.status.json({
+          
+        // })
   
 
     }
@@ -36,9 +53,19 @@ const userRegistration= async (req,res)=>{
 
 const userLogin= async(req,res)=>{
 
+
+  const {err,value} = userValidation.userVal.validate(req.body)
+      
+  if(err){
+
+    return res.status(400).json({message:err})
+  }
+
+  const {USERNAME,PASSWORD} = value
+
  
-        const USERNAME =req.body.username
-        const PASSWORD = req.body.password
+        // const USERNAME =req.body.username
+        // const PASSWORD = req.body.password
 
         const checkuser = await user.findOne({username:USERNAME,password:PASSWORD})
              if(!checkuser){
@@ -49,12 +76,14 @@ const userLogin= async(req,res)=>{
         const token = jwt.sign({username:USERNAME},'adarsh')
         res.json({
 
-            "status":"success",
-            "messege":"token created successfully",
-            "token":token
+             status:"success",
+            message:"token created successfully",
+            data:{
+               token
+            }
         })
 
-        res.send("Loged in successfully")
+        // res.send("Loged in successfully")
 
           
     }
@@ -112,7 +141,16 @@ const viewProductByCategory = async(req,res)=>{
             findUser.cart.push(findProduct)
             await findUser.save()
 
-            res.send("Product added to cart")
+            res.json({
+
+              status:"success",
+             message:"Product added to cart",
+             data:{
+                token
+             }
+         })
+
+            // res.send("Product added to cart")
 
     }
 
@@ -158,8 +196,17 @@ const add_viewProductsToWishlist =async (req,res)=>{
      
                  findUser.whishList.push(findProduct)
                  await findUser.save()
+
+                 res.json({
+
+                  status:"success",
+                 message:"Product added to whishlist",
+                 data:{
+                    token
+                 }
+             })
      
-                 res.send("Product added to whishlist")
+                //  res.send("Product added to whishlist")
      
          }
       
@@ -252,7 +299,7 @@ const payment = async (req, res) => {
 
 // T*****************TOTAL PURCHASED PRODUCTS**************
 
-const orderDetails = async 
+// const orderDetails = async 
 
 
 
