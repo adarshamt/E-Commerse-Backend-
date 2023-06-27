@@ -9,12 +9,12 @@ const tryCatchfFunction = (method)=>{
           await method(req,res,next)
    }
 
-catch(err){
+catch(error){
     res.status(500)
     res.json({
 
         status:" failure",
-        err_message:err.messege
+        err_message:error.message
     })
     
 }

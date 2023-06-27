@@ -58,7 +58,7 @@ const userLogin= async(req,res)=>{
    
 
   const {err,value} = userValidation.userVal.validate(req.body)
-      console.log(value);
+      // console.log(value);
   if(err){
 
     return res.status(400).json({message:err})
@@ -66,9 +66,9 @@ const userLogin= async(req,res)=>{
 
   const {username,password} = value
 
-  console.log(username)
+  // console.log(username)
 
-  console.log(hashPassword);
+  // console.log(hashPassword);
 
 
  
@@ -81,11 +81,11 @@ const userLogin= async(req,res)=>{
                 return   console.log("invalid username")
                }
 
-          let hashPassword = await bcrypt.hash(password,10)
+        
 
           console.log("userlogin password",userLogin.password);
         
-          bcrypt.compare(password,userLogin.hashPassword,(error)=>{
+          bcrypt.compare(password,checkuser.password,(error)=>{
 
             if(error){
 
