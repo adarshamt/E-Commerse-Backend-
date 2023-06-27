@@ -11,7 +11,7 @@ const authorizeUser = (req,res,next)=>{
    }
 
    let ipToken = authorize.split(" ")[1]
-   console.log(ipToken); 
+   console.log("input token",ipToken); 
 
    jwt.verify(ipToken,"adarsh",function(err,decode){
 

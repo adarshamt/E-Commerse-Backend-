@@ -5,7 +5,9 @@ const port=3000;
 
 const mongoose =require("mongoose")
 
-const url= "mongodb://127.0.0.1:27017/Ecommerse"
+// const url= "mongodb://127.0.0.1:27017/Ecommerse"
+
+const url = "mongodb+srv://adarshamt:GG5CY2vRqo77lkv2@batafootware.zlk6gjp.mongodb.net/"
 require('dotenv').config();
 
 app.use(express.json())

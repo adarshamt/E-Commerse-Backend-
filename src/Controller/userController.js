@@ -12,8 +12,9 @@ const userValidation = require("../validation/schemaValidation")
 
 
 
-
 const userRegistration= async (req,res)=>{
+
+  
         
      
       const {err,value} = userValidation.userVal.validate(req.body)
@@ -24,6 +25,7 @@ const userRegistration= async (req,res)=>{
       }
 
       const {username,password} = value
+        
 
 
    
@@ -53,27 +55,45 @@ const userRegistration= async (req,res)=>{
 
 const userLogin= async(req,res)=>{
 
+   
 
   const {err,value} = userValidation.userVal.validate(req.body)
-      
+      console.log(value);
   if(err){
 
     return res.status(400).json({message:err})
   }
 
-  const {USERNAME,PASSWORD} = value
+  const {username,password} = value
+
+  console.log(username)
+
+  console.log(hashPassword);
+
 
  
         // const USERNAME =req.body.username
         // const PASSWORD = req.body.password
 
-        const checkuser = await user.findOne({username:USERNAME,password:PASSWORD})
+        const checkuser = await user.findOne({username:username})
              if(!checkuser){
                  
-                return   console.log("user not registerd")
+                return   console.log("invalid username")
                }
 
-        const token = jwt.sign({username:USERNAME},'adarsh')
+          let hashPassword = await bcrypt.hash(password,10)
+
+          console.log("userlogin password",userLogin.password);
+        
+          bcrypt.compare(password,userLogin.hashPassword,(error)=>{
+
+            if(error){
+
+              return res.json({ status: "failure", message: "Invalid password" })
+            }
+          })
+
+        const token = jwt.sign({username:username},'adarsh')
         res.json({
 
              status:"success",
