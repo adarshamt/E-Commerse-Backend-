@@ -11,7 +11,7 @@ const {adminAuthentication}= require("../Midleware/adminAuthorization")
 const tryCatch =require("../Midleware/tryCatch")
 
 route.post("/admin/login",adminLogin)
-route.get("/admin/users",adminAuthentication,tryCatch(findAllUsers))
+route.get("/admin/users",tryCatch(findAllUsers))
 route.post("/admin/products",adminAuthentication,tryCatch(product.addProduct))
 route.get("/admin/users/:id",adminAuthentication,tryCatch(findOneUser))
 route.get("/admin/products",adminAuthentication,tryCatch(findAllProducts))

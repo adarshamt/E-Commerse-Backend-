@@ -1,16 +1,23 @@
 const express = require('express');
 const app = express()
-
-const port=3000;
+const cors= require('cors')
+const morgan = require('morgan')
+const port=4001;
 
 const mongoose =require("mongoose")
 
 // const url= "mongodb://127.0.0.1:27017/Ecommerse"
 
 const url = "mongodb+srv://adarshamt:GG5CY2vRqo77lkv2@batafootware.zlk6gjp.mongodb.net/"
-require('dotenv').config();
 
+
+
+require('dotenv').config();
+app.use(morgan('dev'))
 app.use(express.json())
+app.use(cors())
+
+
 
 mongoose.connect(url)
  .then(()=>console.log("mongoose in connected"))
@@ -35,7 +42,13 @@ app.use("/",adminRoute)
 // app.use("/",paymentRoute)
 
 
+// ************ CORS ************************
 
+
+
+  // app.get("/getData",(req,res)=>{
+  //   res.send('this is backend data')
+  // })
 
 
 

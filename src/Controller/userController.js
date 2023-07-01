@@ -18,6 +18,7 @@ const userRegistration= async (req,res)=>{
         
      
       const {err,value} = userValidation.userVal.validate(req.body)
+      // console.log(req.body)
       
       if(err){
 
@@ -69,13 +70,13 @@ const userLogin= async(req,res)=>{
   // console.log(username)
 
   // console.log(hashPassword);
+  
 
-
- 
         // const USERNAME =req.body.username
         // const PASSWORD = req.body.password
 
         const checkuser = await user.findOne({username:username})
+
              if(!checkuser){
                  
                 return   console.log("invalid username")
@@ -112,9 +113,12 @@ const userLogin= async(req,res)=>{
 // ************VIEW PRODUCTS BY CATEGORY********
 
 const viewProductByCategory = async(req,res)=>{
-    const ipCategory= req.body.category
+    // const ipCategory= req.body.category
 
-        const viewProducts= await products.find({category:ipCategory})
+//        const viewProducts= await products.find({category:ipCategory})  
+
+        const viewProducts= await products.find()
+
         res.json(viewProducts)
     }
 

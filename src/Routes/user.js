@@ -10,7 +10,7 @@ const tryCatch=require("../Midleware/tryCatch")
 route.post('/users/registrartion',tryCatch(userRegistration))
 route.post('/users/login',tryCatch(userLogin))
 
-route.get("/users/products",authorizeUser,tryCatch(viewProductByCategory))
+route.get("/users/products",tryCatch(viewProductByCategory))
 // route.get("/users/products",viewProductByCategory)
 route.get("/users/products/:id",authorizeUser,tryCatch(viewSpecificProduct))  //
 route.get("/users/products/:id",authorizeUser,tryCatch(viewSpecificProduct))
