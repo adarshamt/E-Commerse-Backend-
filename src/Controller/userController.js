@@ -117,7 +117,7 @@ const viewProductByCategory = async(req,res)=>{
 
 //        const viewProducts= await products.find({category:ipCategory})  
 
-        const viewProducts= await products.find()
+        const viewProducts= await products.find().maxTimeMS(10000)
 
         res.json(viewProducts)
     }
