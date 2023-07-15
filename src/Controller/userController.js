@@ -56,8 +56,6 @@ const userRegistration= async (req,res)=>{
 
 const userLogin= async(req,res)=>{
 
-   
-
   const {err,value} = userValidation.userVal.validate(req.body)
       // console.log(value);
   if(err){
@@ -104,7 +102,7 @@ const userLogin= async(req,res)=>{
             }
         })
 
-        // res.send("Loged in successfully")
+        res.json("Loged in successfully")
 
           
     }
