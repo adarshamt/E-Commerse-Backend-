@@ -62,8 +62,12 @@ const userLogin= async(req,res)=>{
 
     return res.status(400).json({message:err})
   }
-
+ 
   const {username,password} = value
+  
+//  const [ users,setUser] = useState ()
+
+//   const userFetch = async ()=>
 
   // console.log(username)
 
@@ -72,6 +76,7 @@ const userLogin= async(req,res)=>{
 
         // const USERNAME =req.body.username
         // const PASSWORD = req.body.password
+        // console.log(user)
 
         const checkuser = await user.findOne({username:username})
 
@@ -82,9 +87,9 @@ const userLogin= async(req,res)=>{
 
         
 
-          console.log("userlogin password",userLogin.password);
+          // console.log("userlogin password",userLogin.password);
         
-          bcrypt.compare(password,checkuser.password,(error)=>{
+         await bcrypt.compare(password,checkuser.password,(error)=>{
 
             if(error){
 
@@ -102,7 +107,7 @@ const userLogin= async(req,res)=>{
             }
         })
 
-        res.json("Loged in successfully")
+        // res.json("Loged in successfully")
 
           
     }
@@ -116,6 +121,7 @@ const viewProductByCategory = async(req,res)=>{
 //        const viewProducts= await products.find({category:ipCategory})  
 
         const viewProducts= await products.find().maxTimeMS(10000)
+        console.log(viewProducts)
 
         res.json(viewProducts)
     }

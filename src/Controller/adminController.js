@@ -43,7 +43,8 @@ const adminLogin = async (req,res)=>{
             const usersList= await user.find()
 
             // console.log(usersList)
-            res.json({usersList ,mnesage:"succsuss"})
+            res.json({usersList ,mnesage:"success"}) 
+            
 
         }
 
