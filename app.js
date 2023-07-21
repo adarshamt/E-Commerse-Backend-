@@ -7,7 +7,7 @@ const port=4001;
 const mongoose =require("mongoose")
 
 // const url= "mongodb://127.0.0.1:27017/Ecommerse"
-const url = "mongodb+srv://adarshamt:GG5CY2vRqo77lkv2@batafootware.zlk6gjp.mongodb.net/ecommerce"
+const url = "mongodb+srv://adarshamt:I7PPwHu9V6pUasXR@batafootware.zlk6gjp.mongodb.net/ecommerce"
 
 
 
